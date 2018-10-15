@@ -1,0 +1,20 @@
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <div class="container">
+      <button class="navbar-toggler" type="button" (click)="exibirMenu()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="menu-lateral"*ngIf="menuLateral" >
+    <ul class="nav-lateral">
+        <li class="nav-item" routerLinkActive="ativo">
+          <a class="nav-link"routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item" routerLinkActive="ativo">
+          <a class="nav-link" routerLink="/admin">Admin</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,46 @@
+<form #alocacao="ngForm" (ngSubmit)="salvar(alocacao)">
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <label for="nome" class="control-label" [class.is-invalid]="nomeModel.invalid && nomeModel.dirty">Seu nome <span>*</span></label>
+      <div class="">
+        <input id="nome" required minlength="4" class="form-control" type="text" name="userName" #nomeModel="ngModel"
+          [(ngModel)]="nome">
+      </div>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <label for="numeroChave" class="control-label" [class.is-invalid]="chaveModel.invalid && chaveModel.dirty">Numero
+        da chave <span class="required">*</span></label>
+      <div class="">
+        <input id="numeroChave" required minlength="4" class="form-control" type="text" name="codeKey" #chaveModel="ngModel"
+          [(ngModel)]="chave">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 form-group">
+      <label for="email" class="control-label">Email</label>
+      <div class="">
+        <input id="email" class="form-control" type="text" name="email" ngModel>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 form-group">
+      <div class="row">
+        <div class="col-md form-group">
+          <button type="button" class="btn btn-danger btn-block" (click)="limpar(alocacao)">Cancelar</button>
+        </div>
+        <div class="col-md form-group">
+          <button type="submit" class="btn btn-Success btn-block" [disabled]="!alocacao.valid">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<app-loading *ngIf="carregando"></app-loading>

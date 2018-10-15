@@ -1,0 +1,29 @@
+.navbar{
+  background:#55a79a;
+}
+.nav-lateral{
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 210px;
+  background: #424242;
+  list-style-type: none;
+  margin: 0px;
+  padding: 10px 0px;
+}
+.nav-lateral a{
+    color: aliceblue;
+}
+.nav-item{
+  width: 100%;
+}
+.nav-item.ativo{
+  background-color: #585858;
+}
+.menu-lateral{
+  z-index: 9999;
+  width: 200px;
+  height: 100%;
+  position: absolute;
+}

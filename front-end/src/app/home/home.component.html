@@ -1,0 +1,30 @@
+<app-barra-menu></app-barra-menu>
+<div class="container">
+  <div class="row">
+    <div id="logo" class="col-md-12">
+        <img src="../../assets/img/logo.png">
+    </div>
+
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="estadoAlocacao" (click)="mostrarAlocacao()">Alocar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="estadoDevolucao" (click)="mostrarDevolucao()">Devolver</a>
+            </li>
+        </ul>
+    </div>
+    <p-toast></p-toast>
+    <div class="col-md-12 painel" *ngIf="estadoAlocacao==='active'">
+        <app-form-alocacao></app-form-alocacao>
+    </div>
+    <div class="col-md-12 painel" *ngIf="estadoDevolucao==='active'">
+        <app-form-devolucao></app-form-devolucao>
+    </div>
+
+  </div>
+  <hr>
+  <app-table-listagem></app-table-listagem>
+  
+</div>

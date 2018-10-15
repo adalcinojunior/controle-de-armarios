@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@media (min-width:768px){
+    .painel{
+        height: 200px;
+    }
+}
+@media (max-width:768px){
+    .painel{
+        height: 350px;
+    }
+}
+.btn-Success{
+  background:#55a79a;
+  color: white;
+}

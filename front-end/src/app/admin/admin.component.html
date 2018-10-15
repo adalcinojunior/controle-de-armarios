@@ -1,0 +1,29 @@
+<div class="pos-f-t">
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" id="logout" type="button" (click)="logout()">
+                <span class="oi oi-account-logout">SAIR</span>
+            </button>
+        </div>
+    </nav>
+</div>
+<div class="row meucontainer">
+    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 menu-lateral">
+        
+            <ul class="nav-lateral">
+                <li class="nav-item" style="border-bottom: 1px solid gray; padding: 5px 5px;">
+                    <a class="nav-link" >Administrador <img src="../../assets/img/admin-icon.png" alt="..." class="rounded-circle"></a>
+                </li>
+                <li class="nav-item" routerLinkActive="ativo">
+                    <a class="nav-link" routerLink="/admin/allocations">Alocações</a>
+                </li>
+                <li class="nav-item" routerLinkActive="ativo">
+                    <a class="nav-link" routerLink="/admin/config">Configurações</a>
+                </li>
+            </ul>
+        
+    </div>
+    <div class="col-lg-10 col-xl-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>

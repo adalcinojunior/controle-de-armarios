@@ -1,0 +1,36 @@
+<form #devolucaoForm="ngForm" (ngSubmit)="devolver(devolucaoForm)">
+  <div class="row">
+
+    <div class="col-md-6 form-group">
+      <label for="nome" class="control-label2" [class.is-invalid]="nomeModel.invalid && nomeModel.dirty">Seu nome<span
+          class="required">*</span></label>
+      <div class="">
+        <p-dropdown required [options]="users" [(ngModel)]="devolucao.userName" [filter]="true" #nomeModel="ngModel" name="nome" [style]="{'width':'100%'}"></p-dropdown>
+      </div>
+    </div>
+
+    <div class=" col-md-6 form-group">
+      <label for="numeroChave" class="control-label2" [class.is-invalid]="chaveModel.invalid && chaveModel.dirty">Numero
+        da chave <span class="required">*</span></label>
+      <div class="">
+        <input id="numeroChave" required minlength="4" class="form-control" type="text" name="codeKey" #chaveModel="ngModel"
+          [(ngModel)]="devolucao.codeKey">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 form-group">
+      <div class="row">
+        <div class="col-md form-group">
+          <button type="button" class="btn btn-danger btn-block" (click)="limpar(devolucaoForm)">Cancelar</button>
+        </div>
+        <div class="col-md form-group">
+          <button type="submit" class="btn btn-Success btn-block" [disabled]="!devolucaoForm.valid">Devolver</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<app-loading *ngIf="carregando"></app-loading>

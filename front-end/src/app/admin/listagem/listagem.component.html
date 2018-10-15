@@ -1,0 +1,47 @@
+<div class=" row col-md-12">
+    <div class="col-md">
+        <label>Pesquisar: </label>
+        <input type="text" class="form-control" (keyup)="pesquisar($event)">
+    </div>
+</div>
+<hr>
+<div id="listagem" class="col-md">
+
+    <p-table #dt [columns]="cols" [value]="listaReservas" [responsive]="true" [paginator]="true" [rows]="rows">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-reserva>
+            <tr>
+                <td>{{reserva.userName | uppercase}}</td>
+                <td>{{reserva.codeKey}}</td>
+                <td>{{reserva.entryDate | date: 'dd/MM/y hh:mm:ss'}}</td>
+                <td [ngStyle]="{'color':reserva.status=='OCUPADO'?'red':'green'}">{{reserva.status}}</td>
+                <td>{{reserva.devolutionDate | date: 'dd/MM/y hh:mm:ss'}}</td>
+            </tr>
+            <div class="col-md-2" id="rows">
+                <label style="padding-left: 10px;">Rows: </label>
+                <select class="" name="rows" [(ngModel)]="rows" id="seletor-rows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </ng-template>
+    </p-table>
+    <div class="form-group row container">
+        <div style="text-align: right;margin: 10px 10px;">
+            <label>Baixar todos em: </label>
+        </div>
+        <div style="margin: 10px 10px;">
+            <button type="button" class="btn btn-primary" (click)="dt.exportCSV()">.CSV</button>
+        </div>
+        <div style="margin: 10px 10px;">
+            <button type="button" class="btn btn-primary" (click)="dt.exportCSV()">.PDF</button>
+        </div>
+    </div>
+</div>
