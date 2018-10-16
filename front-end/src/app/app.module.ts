@@ -26,7 +26,9 @@ import { AdminModule } from './admin/admin.module';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminModule },
+  { path: '**', redirectTo: 'home'},
   ];
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,11 +45,13 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     HttpModule,
+
     TableModule,
     ToastModule,
     DropdownModule,
     CalendarModule,
-    AdminModule
+    
+    AdminModule,
   ],
   providers: [AlocacaoService, MessageService, ComunicacaoService],
   bootstrap: [AppComponent]

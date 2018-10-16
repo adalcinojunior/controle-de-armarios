@@ -3,24 +3,23 @@ import { Request, Response } from 'express';
 import AllocationModel from '../models/allocation';
 import { EnumStatus } from '../models/allocation';
 
-
 export class AllocationController {
 
     public getAllocationAll(req: Request, res: Response) {
         let busca: string;
-        if(req.query['query']){
+        if (req.query['query']) {
             busca = req.query['query'];
         }
         const regex = new RegExp(busca);
         // Pensar em uma forma de utilizar o filtro para o tipo Date
         console.log(`>> Regex: ${regex}`);
         const filters = [
-            {"userName":{$regex:regex}},
-            {"email":{$regex:regex}},
-            {"status":{$regex:regex}},
-            {"entryDate":{$regex:regex}}
+            { "userName": { $regex: regex } },
+            { "email": { $regex: regex } },
+            { "status": { $regex: regex } },
+            { "entryDate": { $regex: regex } }
         ];
-        return AllocationModel.find({$or:filters})
+        return AllocationModel.find({ $or: filters })
             .then(allocations => {
                 res.status(HttpStatus.OK).send(allocations);
             })
@@ -50,7 +49,7 @@ export class AllocationController {
                 res.send({ message: "Request invalid!" });
             }();
         }
-        
+
         // Verifico se a chave estar disponivel
         AllocationModel.find({ codeKey: req.body.codeKey })
             .then((allocations) => {
@@ -62,7 +61,7 @@ export class AllocationController {
                         throw new Error('Armario ocupado!');
                     }
                 });
-                
+
                 // Salva o registro
                 let newAllocation = new AllocationModel(req.body);
                 return newAllocation.save()
@@ -110,22 +109,40 @@ export class AllocationController {
                 res.send({ message: "Request invalid!" });
             }();
         }
-        
-        let devolution = {userName: req.body.userName, codeKey: req.body.codeKey};
+
+        let devolution = { userName: req.body.userName, codeKey: req.body.codeKey };
 
         return AllocationModel.find(devolution)
             .then((allocations) => {
-                allocations.forEach(allocation => {
-                    let date = new Date();
-                    AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: date })
-                        .catch((err)=>{
-                            throw new Error('Erro na devoluçao das chaves! '+ err);
-                        });
-                });
-                res.status(HttpStatus.OK);
-                res.send({message: 'Chave devolvida com sucesso!'});
-            })       
+                if (allocations.length > 0) {
+                    allocations.forEach(allocation => {
+                        let date = new Date();
+                        AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: date })
+                            .catch((err) => {
+                                throw new Error('Erro na devoluçao das chaves! ' + err);
+                            });
+                    });
+                    res.status(HttpStatus.OK);
+                    res.send({ message: 'Chave devolvida com sucesso!' });
+                }else{
+                    res.status(HttpStatus.CONFLICT);
+                    res.send({ message: 'Conflito entre chave e usuário!' });
+                }
+            })
             .catch((err) => {
+                res.status(HttpStatus.BAD_REQUEST);
+                res.send(err)
+            });
+    }
+
+    public getStatus(req: Request, res: Response) {
+        
+        return AllocationModel.collection.stats()
+            .then((data)=>{
+                res.status(HttpStatus.OK);
+                res.send(data);
+            })
+            .catch((err)=>{
                 res.status(HttpStatus.BAD_REQUEST);
                 res.send(err)
             });

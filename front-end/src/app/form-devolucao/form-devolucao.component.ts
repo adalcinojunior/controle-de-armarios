@@ -21,7 +21,7 @@ export class FormDevolucaoComponent implements OnInit {
   private listaReservas = [];
   private users = [];
   private carregando: boolean = false;
-  
+
   constructor(private alocacaoService: AlocacaoService, private messageService: MessageService, private comunicacao: ComunicacaoService) {
     this.comunicacao.alocacao.subscribe(() => {
       this.carregarListaUsuarios();
@@ -34,10 +34,10 @@ export class FormDevolucaoComponent implements OnInit {
     this.alocacaoService.buscarTodas()
       .then((lista) => {
         this.listaReservas = lista;
-        this.users = [{label:' - - - Selecione - - - ',value:null}];
+        this.users = [{ label: ' - - - Selecione - - - ', value: null }];
         this.listaReservas.forEach((allocation: any) => {
           if (allocation.status === 'OCUPADO') {
-            this.users.push({label:allocation.userName,value:allocation.userName});
+            this.users.push({ label: allocation.userName, value: allocation.userName });
           }
         });
       })
@@ -56,8 +56,8 @@ export class FormDevolucaoComponent implements OnInit {
         this.carregando = false;
       })
       .catch((err) => {
-        this.messageService.add({ severity: 'error', summary: '', detail: 'Erro em devolver chave!' });
-        console.error(`Erro em devolver chave: ${err.message}`);
+        const response = err.json();
+        this.messageService.add({ severity: 'error', summary: 'Erro em devolver chave', detail: response.message });
         this.carregando = false;
       });
   }

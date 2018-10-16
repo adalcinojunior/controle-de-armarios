@@ -1,7 +1,9 @@
 import app from "./app";
+import * as dotenv from 'dotenv';
 
-const PORT = 3000;
+dotenv.load();
+const port = process.env.PORT;
 
-app.listen(PORT,()=>{
-    console.log(`API rodando na porta ${PORT}`);
+app.listen(port,()=>{
+    console.log(`API rodando na porta ${port}`);
 });

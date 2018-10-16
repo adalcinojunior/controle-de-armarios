@@ -10,6 +10,10 @@ export class RoutesAllocation{
     }
     private routes(app):void{
 
+        app.route('/allocations/status')
+            
+            .get(this.allocationController.getStatus)
+
         app.route('/allocations')
             
             .get(this.allocationController.getAllocationAll)

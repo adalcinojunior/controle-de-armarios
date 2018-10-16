@@ -8,10 +8,11 @@
   }
   
   .nav-lateral{
-    position: fixed;
+    position: relative;
     left: 0;
-    top: 25px;
+    top: 0;
     bottom: 0;
+    height: 100%;
     background: #424242;
     list-style-type: none;
     margin: 0px;

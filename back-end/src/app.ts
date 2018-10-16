@@ -3,6 +3,9 @@ import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import { Routes } from './routes/index';
+import * as dotenv from 'dotenv';
+
+dotenv.load();
 
 class App{
     
@@ -11,7 +14,7 @@ class App{
     private routes: Routes;
     constructor(){
         this.app = express();
-        this.mongoUrl = 'mongodb://localhost:27017/CCA';
+        this.mongoUrl = process.env.URL_DATA_BASE;
         this.config();
         this.routes = new Routes(this.app);
     }

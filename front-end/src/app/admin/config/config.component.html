@@ -1,3 +1,26 @@
-<div class="">
-  
-</div>
+<div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Estatisticas</h5>
+          <p class="card-text">Quantidade: {{status.count}} registros.</p>
+          <p class="card-text">Tamanho médio de cada documento: {{status.avgObjSize}} bytes. </p>
+          <select class="form-control" [(ngModel)]="ano" (change)="montarHistorico()">
+            <option *ngFor="let i of years" [value]="i">{{i}}</option>
+          </select>
+          <p-chart type="bar" [data]="historico"></p-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Armazenamento</h5>
+          <p class="card-text">Espaço alocado para está coleção: {{status.storageSize}} bytes</p>
+          <p class="card-text">Tamanho atual desta coleção: {{status.size}} bytes</p>
+          <p-chart type="doughnut" [data]="armazenamento"></p-chart>
+          Deletar todos os registros: <a href="#" class="btn btn-primary">Deletar</a>
+        </div>
+      </div>
+    </div>
+  </div>

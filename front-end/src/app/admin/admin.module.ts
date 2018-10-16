@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
 
 import { AdminComponent } from './admin.component';
 import { ListagemComponent } from './listagem/listagem.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     TableModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ChartModule
   ],
   declarations: [
     AdminComponent,

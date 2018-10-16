@@ -2,7 +2,7 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "API RESTful do Controle de Chave dos Armarios",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./src/server.ts",
