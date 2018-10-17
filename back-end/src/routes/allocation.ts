@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { AllocationController} from '../controllers/allocation';
+import { middleware_pesquisa } from '../middleware/middleware';
 
 export class RoutesAllocation{
     private allocationController: AllocationController;
@@ -10,13 +11,20 @@ export class RoutesAllocation{
     }
     private routes(app):void{
 
-        app.route('/allocations/status')
+        app
+            .route('/allocations/status')
             
             .get(this.allocationController.getStatus)
 
-        app.route('/allocations')
+        app
+            .use(middleware_pesquisa)
             
-            .get(this.allocationController.getAllocationAll)
+            .route('/allocations')
+
+            .get(this.allocationController.getAllocationAll);
+
+        app
+            .route('/allocations')
 
             .post(this.allocationController.addNewAllocation);
 

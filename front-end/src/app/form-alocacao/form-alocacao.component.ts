@@ -24,8 +24,9 @@ export class FormAlocacaoComponent implements OnInit {
   }
 
   salvar(form: NgForm): void {
+    let date = new Date();
     this.carregando = true;
-    this.alocacaoService.salvar({userName: this.nome.toUpperCase(), codeKey: this.chave, email: this.email, status: 'OCUPADO', entryDate: new Date()})
+    this.alocacaoService.salvar({userName: this.nome.toUpperCase(), codeKey: this.chave, email: this.email, status: 'OCUPADO', entryDate: { date:date.toLocaleDateString(), hour:date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()}})
       .then(response => {
         this.limpar(form);
         this.messageService.add({severity: 'success', summary: '', detail: 'Alocação realizada com sucesso!'});

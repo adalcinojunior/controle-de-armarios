@@ -16,11 +16,12 @@ export const AllocationSchema = new Schema({
         type: String
     },
     entryDate: {
-        type: String,
-        default: Date.now
+        date: String,
+        hour: String
     },
     devolutionDate: {
-        type: Date
+        date: String,
+        hour: String
     },
     codeKey: {
         type: String,

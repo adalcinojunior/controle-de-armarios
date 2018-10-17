@@ -23,8 +23,8 @@ export class TableListagemComponent implements OnInit {
   ngOnInit() { this.carregarListaReservas(); }
 
   carregarListaReservas(): void {
-    let temp = this.data.toLocaleDateString().split('/');
-    this.alocacaoService.buscar(temp[2]+'-'+temp[1]+'-'+temp[0])
+    
+    this.alocacaoService.buscar(this.data.toLocaleDateString())
       .then((lista) => {
         this.listaReservas = lista;
       })

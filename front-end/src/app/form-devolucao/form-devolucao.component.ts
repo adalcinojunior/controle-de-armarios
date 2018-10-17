@@ -5,10 +5,20 @@ import { MessageService } from 'primeng/api';
 
 import { AlocacaoService } from '../servicos/alocacao.service';
 import { ComunicacaoService } from '../servicos/comunicacao.service';
-
+class DevolutionDate{
+  date: String;
+  hour: String
+}
 class Devolucao {
   userName: string = null;
   codeKey: string;
+  devolutionDate: DevolutionDate
+  setDevolutionDate(){
+    let date = new Date();
+    this.devolutionDate = new DevolutionDate();
+    this.devolutionDate.date = date.toLocaleDateString();
+    this.devolutionDate.hour = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+  }
 }
 
 @Component({
@@ -48,6 +58,7 @@ export class FormDevolucaoComponent implements OnInit {
 
   devolver(form: NgForm): void {
     this.carregando = true;
+    this.devolucao.setDevolutionDate();
     this.alocacaoService.devolver(this.devolucao)
       .then(() => {
         this.messageService.add({ severity: 'success', summary: '', detail: 'Devoluçao realizada com sucesso!' });

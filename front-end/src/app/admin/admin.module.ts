@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
 
 import { AdminComponent } from './admin.component';
 import { ListagemComponent } from './listagem/listagem.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
     FormsModule,
     TableModule,
     RouterModule.forChild(routes),
-    ChartModule
+    ChartModule,
+    CalendarModule
   ],
   declarations: [
     AdminComponent,

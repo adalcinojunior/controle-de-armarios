@@ -19,9 +19,9 @@
             <tr>
                 <td>{{reserva.userName | uppercase}}</td>
                 <td>{{reserva.codeKey}}</td>
-                <td>{{reserva.entryDate | date: 'dd/MM/y hh:mm:ss'}}</td>
+                <td>{{reserva.entryDate.date}} as {{reserva.entryDate.hour}}</td>
                 <td [ngStyle]="{'color':reserva.status=='OCUPADO'?'red':'green'}">{{reserva.status}}</td>
-                <td>{{reserva.devolutionDate | date: 'dd/MM/y hh:mm:ss'}}</td>
+                <td>{{reserva.devolutionDate.date}} as {{reserva.devolutionDate.hour}}</td>
             </tr>
             <div class="col-md-2" id="rows">
                 <label style="padding-left: 10px;">Rows: </label>

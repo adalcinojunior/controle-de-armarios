@@ -5,20 +5,11 @@ import { EnumStatus } from '../models/allocation';
 
 export class AllocationController {
 
-    public getAllocationAll(req: Request, res: Response) {
-        let busca: string;
-        if (req.query['query']) {
-            busca = req.query['query'];
-        }
-        const regex = new RegExp(busca);
-        // Pensar em uma forma de utilizar o filtro para o tipo Date
-        console.log(`>> Regex: ${regex}`);
-        const filters = [
-            { "userName": { $regex: regex } },
-            { "email": { $regex: regex } },
-            { "status": { $regex: regex } },
-            { "entryDate": { $regex: regex } }
-        ];
+    public getAllocationAll(req: Request, res: Response ) {
+        let filters = req.body.filters;
+
+        console.log(JSON.stringify(filters));
+
         return AllocationModel.find({ $or: filters })
             .then(allocations => {
                 res.status(HttpStatus.OK).send(allocations);
@@ -111,13 +102,14 @@ export class AllocationController {
         }
 
         let devolution = { userName: req.body.userName, codeKey: req.body.codeKey };
-
+        let devolutionDate = req.body.devolutionDate;
+        
         return AllocationModel.find(devolution)
             .then((allocations) => {
                 if (allocations.length > 0) {
                     allocations.forEach(allocation => {
                         let date = new Date();
-                        AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: date })
+                        AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: {date:devolutionDate.date,hour:devolutionDate.hour} })
                             .catch((err) => {
                                 throw new Error('Erro na devoluçao das chaves! ' + err);
                             });

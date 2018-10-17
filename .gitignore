@@ -1,3 +1,6 @@
 /back-end/node_modules
+/back-end/.env
 
 /front-end/node_modules
+/front-end/src/environments
+
