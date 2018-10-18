@@ -9,7 +9,7 @@ export class AlocacaoService {
     constructor(private http: Http) { }
 
     buscar(busca: string): Promise<any> {
-        return this.http.get(environment.urlAPI + '/allocations?query=' + busca)
+        return this.http.get(environment.urlAPI + '/allocations' + busca)
             .toPromise()
             .then((response) => response.json())
             .catch((err) => {

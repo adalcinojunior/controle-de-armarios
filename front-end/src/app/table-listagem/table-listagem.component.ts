@@ -24,7 +24,7 @@ export class TableListagemComponent implements OnInit {
 
   carregarListaReservas(): void {
     
-    this.alocacaoService.buscar(this.data.toLocaleDateString())
+    this.alocacaoService.buscar('?date='+this.data.toLocaleDateString())
       .then((lista) => {
         this.listaReservas = lista;
       })

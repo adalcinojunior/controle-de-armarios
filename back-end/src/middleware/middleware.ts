@@ -1,52 +1,51 @@
 import { Request, Response } from 'express';
 
-export const middleware_pesquisa = function (req: Request, res: Response, next: Function) {
-    let busca: string;
-    if (req.query['query']) {
-        busca = req.query['query'];
-    }
-    const regex = new RegExp(busca);
-       
+// Quando tiver o atributo query na requisição
+const md_query = function (req: Request, res: Response, next: Function) {
+    const regex = new RegExp(req.query['query']);
+
     const filters = [
         { "userName": { $regex: regex } },
         { "email": { $regex: regex } },
         { "status": { $regex: regex } },
-        
-        
-
+        { "codeKey": { $regex: regex } },
+        { "entryDate.date": { $regex: regex } },
+        { "entryDate.hour": { $regex: regex } },
+        { "devolutionDate.date": { $regex: regex } },
+        { "devolution.hour": { $regex: regex } }
     ];
-    req.body.filters = filters;
+    req.body.filters = { $or: filters };
     next();
 }
 
-export const middleware_data = function (req: Request, res: Response, next: Function) {
-    console.log(req.query);
+// Quando a busca for com datas
+const md_date = function (req: Request, res: Response, next: Function) {
+    // ano -> 2018
+    // mes -> 10/2018
+    // dia -> 17/10/2018
+                
+    const regex = new RegExp(req.query['date']);
+    console.log('REGEX: ' + regex);
+    req.body.filters = { "entryDate.date": { $regex: regex } };
 
-    if (req.query['ano']) {
-        
-    }
-
-    if (req.query['mes']) {
-        
-    }
-
-    if (req.query['dia']) {
-        
-    }
-
-    let busca: string;
-    if (req.query['query']) {
-        busca = req.query['query'];
-    }
-    const regex = new RegExp(busca);
-    
-    
-    const filters = [
-        { "userName": { $regex: regex } },
-        { "email": { $regex: regex } },
-        { "status": { $regex: regex } },
-        { "entryDate": { $regex: regex } }
-    ];
-    req.body.filters = filters;
     next();
 }
+
+
+
+
+export const middleware = function (req: Request, res: Response, next: Function) {
+
+    if (JSON.stringify(req.query) != '{}') {
+        if (req.query['query']) {
+            md_query(req, res, next);
+        } else if((req.query['date'])){
+            md_date(req, res, next);
+        }
+    } else {
+        req.body.filters = {};
+        next();
+    }
+
+}
+

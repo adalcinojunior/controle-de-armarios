@@ -8,9 +8,9 @@ export class AllocationController {
     public getAllocationAll(req: Request, res: Response ) {
         let filters = req.body.filters;
 
-        console.log(JSON.stringify(filters));
+        //console.log(JSON.stringify(filters));
 
-        return AllocationModel.find({ $or: filters })
+        return AllocationModel.find(filters)
             .then(allocations => {
                 res.status(HttpStatus.OK).send(allocations);
             })
@@ -47,7 +47,7 @@ export class AllocationController {
                 allocations.forEach((allocation: any) => {
                     // Caso onde o armario ja foi devolvido
                     if (allocation && allocation.status != EnumStatus[0]) {// DEVOLVIDO
-                        res.status(HttpStatus.BAD_REQUEST)
+                        res.status(HttpStatus.BAD_REQUEST);
                         res.send({ message: 'Armario ocupado!' });
                         throw new Error('Armario ocupado!');
                     }

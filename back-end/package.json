@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./src/server.ts",
-    "start": "nodemon ./dist/server.js"
+    "start": "nodemon ./dist/server.js",
+    "watch": "nodemon --exec ts-node -- ./src/server.ts"
   },
   "author": "Adalcino Junior",
   "license": "MIT",
@@ -25,6 +26,7 @@
     "@types/sinon": "^5.0.2",
     "@types/supertest": "^2.0.5",
     "chai": "^4.1.2",
+    "dotenv": "^6.1.0",
     "mocha": "^5.2.0",
     "sinon": "^6.1.5",
     "supertest": "^3.1.0",

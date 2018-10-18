@@ -37,7 +37,7 @@ export class ListagemComponent implements OnInit {
     busca = busca.toUpperCase();
     clearTimeout(this.buscando);
     this.buscando = setTimeout(() => {
-      this.alocacaoService.buscar(busca)
+      this.alocacaoService.buscar('?query='+busca)
         .then((lista) => {
           this.listaReservas = lista;
         })
