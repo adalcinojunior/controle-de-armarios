@@ -9,19 +9,22 @@
 </div>
 <div class="row meucontainer">
     <div class="col-sm-4 col-lg-2 col-xl-2 menu-lateral">
-        
-            <ul class="nav-lateral">
-                <li class="nav-item" style="border-bottom: 1px solid gray; padding: 5px 5px;">
-                    <a class="nav-link" >Administrador <img src="../../assets/img/admin-icon.png" alt="..." class="rounded-circle"></a>
-                </li>
-                <li class="nav-item" routerLinkActive="ativo">
-                    <a class="nav-link" routerLink="/admin/allocations">Alocações</a>
-                </li>
-                <li class="nav-item" routerLinkActive="ativo">
-                    <a class="nav-link" routerLink="/admin/config">Configurações</a>
-                </li>
-            </ul>
-        
+
+        <ul class="nav-lateral">
+            <li class="nav-item" style="border-bottom: 1px solid gray; padding: 5px 5px;">
+                <a class="nav-link">Administrador <img src="../../assets/img/admin-icon.png" alt="..." class="rounded-circle"></a>
+            </li>
+            <li class="nav-item" routerLinkActive="ativo">
+                <a class="nav-link" routerLink="/admin/alocacoes">Alocações</a>
+            </li>
+            <li class="nav-item" routerLinkActive="ativo">
+                <a class="nav-link" routerLink="/admin/historicos">Historicos</a>
+            </li>
+            <li class="nav-item" routerLinkActive="ativo">
+                <a class="nav-link" routerLink="/admin/configuraçoes">Configurações</a>
+            </li>
+        </ul>
+
     </div>
     <div class="col-lg-10 col-xl-10" style="padding-top:10px">
         <router-outlet></router-outlet>

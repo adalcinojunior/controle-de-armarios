@@ -1,0 +1,44 @@
+<div class="row" style="padding-top:10px">
+    <div class="col">
+      <div class="card">
+        <h5 class="card-title">Historicos</h5>
+        <div class="card-body row centralizado">
+          <div class="col-sm-10 col-md-10">
+            <h5 class="card-title">Diario</h5>
+            <div class="row">
+              <div class="col-sm-2 col-md-2 alinhado-direita-70">
+                <p-calendar [ngModel]="dataAtual" dateFormat="dd/mm/yy" [locale]="pt" [showIcon]="true" name="dia" id="dia" #dia (onSelect)="atualizarHistoricoDiario(dia.value)" ></p-calendar>
+              </div>
+            </div>
+            <p-chart type="bar" [data]="historicoSemanal"></p-chart>
+          </div>
+          
+          <div class="col-sm-10 col-md-10">
+            <h5 class="card-title">Mensal</h5>
+            <div class="row">
+              <div class="col-sm-2 col-md-2 alinhado-direita-70">
+                <p-calendar view="month" [ngModel]="dataAtual" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" name="mes" id="mes"
+                  [showIcon]="true" #mes (onSelect)="atualizarHistoricoMensal(mes.value)" [locale]="pt" [styleClass]="'ui-calendar	'"></p-calendar>
+              </div>
+            </div>
+            <p-chart type="bar" [data]="historicoMensal"></p-chart>
+          </div>
+        </div>
+  
+        <div class="card-body row centralizado">
+          <div class="col-sm-10 col-md-10">
+            <h5 class="card-title">Anual</h5>
+            <div class="row">
+              <div class="col-sm-2 alinhado-direita-80">
+                <select class="form-control" [ngModel]="dataAtual.getFullYear()" #ano (change)="montarHistoricoAnual(ano.value)" name="ano" id="ano">
+                  <option *ngFor="let i of years" [value]="i">{{i}}</option>
+                </select>
+              </div>
+            </div>
+            <p-chart type="line" [data]="historicoAnual"></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -10,11 +10,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { AdminComponent } from './admin.component';
 import { ListagemComponent } from './listagem/listagem.component';
 import { ConfigComponent } from './config/config.component';
+import { HistoricosComponent } from './historicos/historicos.component';
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, children:[
     { path: '', component: ListagemComponent },
-    { path: 'allocations', component: ListagemComponent },
-    { path: 'config', component: ConfigComponent}
+    { path: 'alocacoes', component: ListagemComponent },
+    { path: 'configuraçoes', component: ConfigComponent},
+    { path: 'historicos', component: HistoricosComponent}
   ]}
   ];
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
   declarations: [
     AdminComponent,
     ListagemComponent,
-    ConfigComponent
+    ConfigComponent,
+    HistoricosComponent
   ],
   bootstrap: [AdminComponent]
 })

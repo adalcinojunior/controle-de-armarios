@@ -1,0 +1,15 @@
+.alinhado-direita-70{
+    position: relative;
+    left: 70%;
+}
+.alinhado-direita-80{
+    position: relative;
+    left:80%;
+}
+.centralizado {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

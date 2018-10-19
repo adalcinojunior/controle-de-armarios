@@ -10,7 +10,7 @@
           <p class="card-text">Tamanho médio de cada registro: {{status.avgObjSize}} bytes. </p>
           <div class="form-group" id="div-deletar">
             <label class="padding-5">Deletar todos os registros:</label>
-            <button class="btn btn-danger padding-5">Deletar</button>
+            <button class="btn btn-danger padding-5" (click)="showModalDeletar()">Deletar</button>
           </div>
 
         </div>
@@ -20,58 +20,29 @@
       </div>
     </div>
   </div>
-
 </div>
 
-<div class="row" style="padding-top:10px">
-  <div class="col">
-    <div class="card">
-      <h5 class="card-title">Historico</h5>
-      <div class="card-body row">
-        <div class="col-sm-6 col-md-6">
-          <h5 class="card-title">Diario</h5>
-          <div class="row">
-            <div class="col-sm-2 col-md-2">
-              <label for="semana">Dia: </label>
-            </div>
-            <div class="col-sm-2 col-md-2">
-              <p-calendar [(ngModel)]="value" [showIcon]="true" name="semana" id="semana"></p-calendar>
-            </div>
-          </div>
-          <p-chart type="bar" [data]="historicoSemanal"></p-chart>
+<div *ngIf="modaldeletar">
+    <div class="externa">
+      <div class="col-sm-4 col-md-4 interna modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmação</h5>
+          <button type="button" class="close" (click)="hideModalDeletar()">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-
-        <div class="col-sm-6 col-md-6">
-          <h5 class="card-title">Mensal</h5>
-          <div class="row">
-            <div class="col-sm-2 col-md-2">
-              <label for="mes">Mês: </label>
-            </div>
-            <div class="col-sm-2 col-md-2">
-              <p-calendar [(ngModel)]="dateValue" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" name="mes" id="mes"
-                [showIcon]="true"></p-calendar>
-            </div>
-          </div>
-          <p-chart type="bar" [data]="historicoMensal"></p-chart>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir todos os {{status.count}} registros?</p>
         </div>
-      </div>
-
-      <div class="card-body row">
-        <div class="col-sm-12 col-md-12">
-          <h5 class="card-title">Anual</h5>
-          <div class="row">
-            <div class="col-sm-2">
-              <label for="ano"> Ano: </label>
-            </div>
-            <div class="col-sm-2">
-              <select class="form-control" [ngModel]="ano" #ano (change)="montarHistoricoAnual(ano.value)" name="ano" id="ano">
-                <option *ngFor="let i of years" [value]="i">{{i}}</option>
-              </select>
-            </div>
-          </div>
-          <p-chart type="bar" [data]="historicoAnual"></p-chart>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="deletarAll()">Sim</button>
+          <button type="button" class="btn btn-secondary" (click)="hideModalDeletar()">Cancelar</button>
         </div>
       </div>
     </div>
+
+    <!-- FUNDO PRETO DO MODAL -->
+    <div class="" tabindex="-1" role="dialog" id="modaldeletar"> </div>        
+        
   </div>
-</div>
+  

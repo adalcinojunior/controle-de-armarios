@@ -139,4 +139,16 @@ export class AllocationController {
                 res.send(err)
             });
     }
+
+    public deleteAllAllocation(req: Request, res: Response) {
+        return AllocationModel.remove({})
+            .then(() => {
+                res.status(HttpStatus.NO_CONTENT);
+                res.send();
+            })
+            .catch(err => {
+                res.status(HttpStatus.UNPROCESSABLE_ENTITY);
+                res.send(err)
+            });
+    }
 }
