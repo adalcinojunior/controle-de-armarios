@@ -5,7 +5,7 @@ import { EnumStatus } from '../models/allocation';
 
 export class AllocationController {
 
-    public getAllocationAll(req: Request, res: Response ) {
+    public getAll(req: Request, res: Response ) {
         let filters = req.body.filters;
 
         //console.log(JSON.stringify(filters));
@@ -20,7 +20,7 @@ export class AllocationController {
 
     }
 
-    public getAllocationId(req: Request, res: Response) {
+    public getOne(req: Request, res: Response) {
         return AllocationModel.findOne({ _id: req.params.allocationId })
             .then(allocation => {
                 res.status(HttpStatus.OK);
@@ -32,7 +32,7 @@ export class AllocationController {
             });
     }
 
-    public addNewAllocation(req: Request, res: Response) {
+    public create(req: Request, res: Response) {
         // Valido o corpo da requisição
         if (req.body === null || req.body === undefined || JSON.stringify(req.body) === "{}") {
             return function () {
@@ -54,8 +54,7 @@ export class AllocationController {
                 });
 
                 // Salva o registro
-                let newAllocation = new AllocationModel(req.body);
-                return newAllocation.save()
+                return AllocationModel.create(req.body)
                     .then((allocation) => {
                         res.status(HttpStatus.CREATED)
                         res.send(allocation);
@@ -67,7 +66,7 @@ export class AllocationController {
                     });
             });
     }
-    public updateAllocation(req: Request, res: Response) {
+    public update(req: Request, res: Response) {
 
         return AllocationModel.findOneAndUpdate({ _id: req.params.allocationId }, req.body, { new: true })
             .then(allocation => {
@@ -80,7 +79,7 @@ export class AllocationController {
             });
     }
 
-    public deleteAllocation(req: Request, res: Response) {
+    public delete(req: Request, res: Response) {
         return AllocationModel.findByIdAndRemove({ _id: req.params.allocationId })
             .then(() => {
                 res.status(HttpStatus.NO_CONTENT);
@@ -140,7 +139,7 @@ export class AllocationController {
             });
     }
 
-    public deleteAllAllocation(req: Request, res: Response) {
+    public deleteAll(req: Request, res: Response) {
         return AllocationModel.remove({})
             .then(() => {
                 res.status(HttpStatus.NO_CONTENT);

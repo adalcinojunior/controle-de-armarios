@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 // Quando tiver o atributo query na requisição
 const md_query = function (req: Request, res: Response, next: Function) {
     const regex = new RegExp(req.query['query']);
-
     const filters = [
         { "userName": { $regex: regex } },
         { "email": { $regex: regex } },
@@ -20,19 +19,11 @@ const md_query = function (req: Request, res: Response, next: Function) {
 
 // Quando a busca for com datas
 const md_date = function (req: Request, res: Response, next: Function) {
-    // ano -> 2018
-    // mes -> 10/2018
-    // dia -> 17/10/2018
-                
     const regex = new RegExp(req.query['date']);
-    console.log('REGEX: ' + regex);
+    //console.log('REGEX: ' + regex);
     req.body.filters = { "entryDate.date": { $regex: regex } };
-
     next();
 }
-
-
-
 
 export const middleware = function (req: Request, res: Response, next: Function) {
 
@@ -49,3 +40,11 @@ export const middleware = function (req: Request, res: Response, next: Function)
 
 }
 
+class FiltrosEPesquisa{
+
+    getMiddleware(): Function{
+        return middleware;
+    }
+
+}
+export default new FiltrosEPesquisa();

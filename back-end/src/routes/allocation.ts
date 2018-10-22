@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { AllocationController} from '../controllers/allocation';
-import { middleware } from '../middleware/middleware';
+import  middleware  from '../middleware/middleware';
 
 export class RoutesAllocation{
     private allocationController: AllocationController;
@@ -12,16 +12,16 @@ export class RoutesAllocation{
     private routes(app):void{
         //  - - - - - Rotas livres - - - - -
         app
-            .use(middleware)
+            .use(middleware.getMiddleware())
             
             .route('/allocations')
 
-            .get(this.allocationController.getAllocationAll);
+            .get(this.allocationController.getAll);
 
         app
             .route('/allocations')
 
-            .post(this.allocationController.addNewAllocation);
+            .post(this.allocationController.create);
 
         app.route('/allocations/devolution/:key')
                 
@@ -38,16 +38,16 @@ export class RoutesAllocation{
         app
             .route('/allocations/removeall')
             
-            .delete(this.allocationController.deleteAllAllocation)
+            .delete(this.allocationController.deleteAll)
 
 
         app.route('/allocations/:allocationId')
         
-            .get(this.allocationController.getAllocationId)
+            .get(this.allocationController.getOne)
 
-            .delete(this.allocationController.deleteAllocation)
+            .delete(this.allocationController.delete)
 
-            .put(this.allocationController.updateAllocation);
+            .put(this.allocationController.update);
         
         //  - - - - - - - - - - - - - - - - - 
 
