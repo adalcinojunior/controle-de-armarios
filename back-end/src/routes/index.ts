@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { RoutesAllocation } from './allocation';
 import { RoutesUser } from  './user';
 import Autentication  from '../security/autentication';
+import security from '../security/validToken';
 
 export class Routes {
     private routeAllocation: RoutesAllocation;
@@ -15,7 +16,7 @@ export class Routes {
 
     private routes(app: mongoose.Application): void {
         
-         app.route('/login')
+        app.route('/login')
              .post(Autentication.authenticate);
 
         app.route('/refresh')

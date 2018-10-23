@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { AllocationController} from '../controllers/allocation';
 import  middleware  from '../middleware/middleware';
+import security from '../security/validToken';
 
 export class RoutesAllocation{
     private allocationController: AllocationController;
@@ -12,7 +13,7 @@ export class RoutesAllocation{
     private routes(app):void{
         //  - - - - - Rotas livres - - - - -
         app
-            .use(middleware.getMiddleware())
+            .use(middleware.getMiddleware())// Middleware de busca
             
             .route('/allocations')
 
@@ -23,7 +24,8 @@ export class RoutesAllocation{
 
             .post(this.allocationController.create);
 
-        app.route('/allocations/devolution/:key')
+        app
+            .route('/allocations/devolution/:key')
                 
             .post(this.allocationController.devolutionKey);
         //  - - - - - - - - - - - - - - - - - 
@@ -31,17 +33,23 @@ export class RoutesAllocation{
 
         //  - - - - - Rotas que devem ser protegidas - - - - -
         app
+            .use('/allocations/status',security.validToken())// Middleware para validar token de acesso.
+
             .route('/allocations/status')
-            
-            .get(this.allocationController.getStatus)
+
+            .get(this.allocationController.getStatus);
         
-        app
+        app      
+            .use('/allocations/removeall',security.validToken())// Middleware para validar token de acesso.
+
             .route('/allocations/removeall')
             
-            .delete(this.allocationController.deleteAll)
+            .delete(this.allocationController.deleteAll);
+        
+        app
+            .use('/allocations/:allocationId',security.validToken())// Middleware para validar token de acesso.
 
-
-        app.route('/allocations/:allocationId')
+            .route('/allocations/:allocationId')
         
             .get(this.allocationController.getOne)
 
