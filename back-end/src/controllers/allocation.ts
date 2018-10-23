@@ -5,7 +5,7 @@ import { EnumStatus } from '../models/allocation';
 
 export class AllocationController {
 
-    public getAll(req: Request, res: Response ) {
+    public getAll(req: Request, res: Response ): Promise<any> {
         let filters = req.body.filters;
 
         //console.log(JSON.stringify(filters));
@@ -20,7 +20,7 @@ export class AllocationController {
 
     }
 
-    public getOne(req: Request, res: Response) {
+    public getOne(req: Request, res: Response): Promise<any> {
         return AllocationModel.findOne({ _id: req.params.allocationId })
             .then(allocation => {
                 res.status(HttpStatus.OK);
@@ -34,7 +34,8 @@ export class AllocationController {
 
     public create(req: Request, res: Response) {
         // Valido o corpo da requisição
-        if (req.body === null || req.body === undefined || JSON.stringify(req.body) === "{}") {
+        if (JSON.stringify(req.body) == '{"filters":{}}') { // CASO O BODY VENHA VAZIO
+            //console.log("Body: " + JSON.stringify(req.body));
             return function () {
                 res.status(HttpStatus.BAD_REQUEST);
                 res.send({ message: "Request invalid!" });
@@ -59,8 +60,7 @@ export class AllocationController {
                         res.status(HttpStatus.CREATED)
                         res.send(allocation);
                     })
-                    .catch((err) => {
-                        console.log("problemas em salvar!!" + err);
+                    .catch((err) => {                       
                         res.status(HttpStatus.BAD_REQUEST)
                         res.send(err);
                     });

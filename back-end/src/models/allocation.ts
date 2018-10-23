@@ -7,6 +7,15 @@ export enum EnumStatus{
     'OCUPADO'
 }
 
+export interface IAllocation{
+    userName: String;
+    email:String;
+    entryDate: String;
+    devolutionDate: String;
+    codeKey: String;
+    status:EnumStatus;
+}
+
 export const AllocationSchema = new Schema({
     userName: {
         type: String,

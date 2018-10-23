@@ -2,6 +2,11 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+export interface IUser{
+    userName: String;
+    password: String;
+}
+
 export const User_Schema = new Schema({
     userName: {
         type: String,

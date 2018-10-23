@@ -18,8 +18,8 @@ export class Routes {
          app.route('/login')
              .post(Autentication.authenticate);
 
-        // app.route('/refresh')
-        //     .post(this.autentication.refreshToken);
+        app.route('/refresh')
+            .post(Autentication.refreshToken);
 
     }
 }
