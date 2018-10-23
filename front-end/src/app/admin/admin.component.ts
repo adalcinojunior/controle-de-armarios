@@ -26,6 +26,7 @@ export class AdminComponent implements OnInit {
   }  
 
   logout() {
+    localStorage.clear();
     this.router.navigate(['home']);
   }
 

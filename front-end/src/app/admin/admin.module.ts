@@ -11,7 +11,10 @@ import { AdminComponent } from './admin.component';
 import { ListagemComponent } from './listagem/listagem.component';
 import { ConfigComponent } from './config/config.component';
 import { HistoricosComponent } from './historicos/historicos.component';
+import { LoginComponent } from './login/login.component';
+
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, children:[
     { path: '', component: ListagemComponent },
     { path: 'alocacoes', component: ListagemComponent },
@@ -32,7 +35,8 @@ const routes: Routes = [
     AdminComponent,
     ListagemComponent,
     ConfigComponent,
-    HistoricosComponent
+    HistoricosComponent,
+    LoginComponent
   ],
   bootstrap: [AdminComponent]
 })

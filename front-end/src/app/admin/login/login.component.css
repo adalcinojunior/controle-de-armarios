@@ -1,0 +1,12 @@
+#div-login{
+    margin: auto;
+    border: 1px solid rgb(206, 195, 195);
+    border-radius: 2%;
+}
+#logo img{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}

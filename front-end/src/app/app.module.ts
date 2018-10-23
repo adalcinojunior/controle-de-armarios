@@ -22,6 +22,7 @@ import { TableListagemComponent } from './table-listagem/table-listagem.componen
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AdminModule } from './admin/admin.module';
+import { AuthService } from './servicos/autenticacao.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -53,7 +54,7 @@ const routes: Routes = [
     
     AdminModule,
   ],
-  providers: [AlocacaoService, MessageService, ComunicacaoService],
+  providers: [AlocacaoService, MessageService, ComunicacaoService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
