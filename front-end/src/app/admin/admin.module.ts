@@ -32,7 +32,8 @@ const routes: Routes = [
     TableModule,
     RouterModule.forChild(routes),
     ChartModule,
-    CalendarModule
+    CalendarModule,
+    Interceptor
   ],
   declarations: [
     AdminComponent,

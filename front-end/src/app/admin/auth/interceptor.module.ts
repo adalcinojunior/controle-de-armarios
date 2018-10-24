@@ -17,7 +17,8 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
                 refreshToken: refreshToken
             }
         });    
-            
+        console.log(JSON.stringify(req.headers));
+        console.log(JSON.stringify(request.headers));
         return next.handle(request);
     }
 }

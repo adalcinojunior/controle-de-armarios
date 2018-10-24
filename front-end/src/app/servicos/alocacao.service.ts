@@ -50,9 +50,9 @@ export class AlocacaoService {
 
     status(): Promise<any> {
         
-        return this.httpClient.get<any>(environment.urlAPI + '/allocations/status')
+        return this.httpClient.get<any>('/allocations/status')
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch((err) => {
                 return Promise.reject(err);
             });
