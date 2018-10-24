@@ -67,8 +67,8 @@ export class FormDevolucaoComponent implements OnInit {
         this.carregando = false;
       })
       .catch((err) => {
-        const response = err.json();
-        this.messageService.add({ severity: 'error', summary: 'Erro em devolver chave', detail: response.message });
+        console.log(err);
+        this.messageService.add({ severity: 'error', summary: 'Erro em devolver chave', detail: err.message });
         this.carregando = false;
       });
   }

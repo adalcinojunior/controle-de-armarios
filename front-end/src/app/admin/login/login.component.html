@@ -4,15 +4,21 @@
       <img src="../../assets/img/logo.png">
     </div>
     <form #login="ngForm" (ngSubmit)="autenticar(login)">
+      <div class="alert alert-danger" role="alert" *ngIf="erro">
+        Usuário e/ou senha incorretos!
+        <button type="button" class="close" (click)="hide()">
+          <span >&times;</span>
+        </button>
+      </div>
       <div class="form-group">
         <label for="userName">Nome de Usuário:</label>
         <input type="text" class="form-control" name="userName" id="userName" required minlength="4" #userNameModel="ngModel"
-        [(ngModel)]="userName">
+          [(ngModel)]="userName">
       </div>
       <div class="form-group">
         <label for="password">Senha:</label>
         <input type="password" class="form-control" name="password" id="password" required minlength="4" #passwordModel="ngModel"
-        [(ngModel)]="password">
+          [(ngModel)]="password">
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-Success btn-block" [disabled]="!login.valid">Entrar</button>

@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AlocacaoService } from '../servicos/alocacao.service';
@@ -17,7 +17,11 @@ export class FormAlocacaoComponent implements OnInit {
   private nome: string;
   private email: string;
   
-  constructor(private alocacaoService: AlocacaoService, private messageService: MessageService, private comunicacao: ComunicacaoService) { }
+  constructor(
+    private alocacaoService: AlocacaoService,
+    private messageService: MessageService,
+    private comunicacao: ComunicacaoService
+  ) { }
 
   ngOnInit() {
     

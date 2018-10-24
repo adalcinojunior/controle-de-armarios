@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TableModule } from 'primeng/table';
@@ -22,7 +23,6 @@ import { TableListagemComponent } from './table-listagem/table-listagem.componen
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AdminModule } from './admin/admin.module';
-import { AuthService } from './servicos/autenticacao.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -46,6 +46,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     HttpModule,
+    HttpClientModule,
 
     TableModule,
     ToastModule,
@@ -54,7 +55,7 @@ const routes: Routes = [
     
     AdminModule,
   ],
-  providers: [AlocacaoService, MessageService, ComunicacaoService, AuthService],
+  providers: [AlocacaoService, MessageService, ComunicacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

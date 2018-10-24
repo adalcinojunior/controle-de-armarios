@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AlocacaoService {
 
-    constructor(private http: Http) { }
+    constructor(
+        private httpClient: HttpClient
+    ) { }
 
     buscar(busca: string): Promise<any> {
-        return this.http.get(environment.urlAPI + '/allocations' + busca)
+        return this.httpClient.get<any>(environment.urlAPI + '/allocations' + busca)
             .toPromise()
-            .then((response) => response.json())
+            .then(response => response)
             .catch((err) => {
                 return Promise.reject(err);
             });
     }
 
     buscarTodas(): Promise<any> {
-        return this.http.get(environment.urlAPI + '/allocations')
+        return this.httpClient.get<any>(environment.urlAPI + '/allocations')
             .toPromise()
-            .then((response) => response.json())
+            .then(response => response)
             .catch((err) => {
                 return Promise.reject(err);
             });
     }
 
     salvar(alocacao): Promise<any> {
-        return this.http.post(environment.urlAPI + '/allocations', alocacao)
+        return this.httpClient.post<any>(environment.urlAPI + '/allocations', alocacao)
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch((err) => {
                 return Promise.reject(err);
             });
@@ -37,9 +39,9 @@ export class AlocacaoService {
 
 
     devolver(devolucao): Promise<any> {
-        return this.http.post(environment.urlAPI + '/allocations/devolution/' + devolucao.codeKey, devolucao)
+        return this.httpClient.post<any>(environment.urlAPI + '/allocations/devolution/' + devolucao.codeKey, devolucao)
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch((err) => {
                 return Promise.reject(err);
             });
@@ -47,7 +49,8 @@ export class AlocacaoService {
     }
 
     status(): Promise<any> {
-        return this.http.get(environment.urlAPI + '/allocations/status')
+        
+        return this.httpClient.get<any>(environment.urlAPI + '/allocations/status')
             .toPromise()
             .then(response => response.json())
             .catch((err) => {
@@ -55,13 +58,13 @@ export class AlocacaoService {
             });
     }
 
-    deletarTodos(): Promise<any>{
-        return this.http.delete(environment.urlAPI + '/allocations/removeall')
+    deletarTodos(): Promise<any> {
+        return this.httpClient.delete<any>(environment.urlAPI + '/allocations/removeall')
             .toPromise()
             .then(() => true)
             .catch((err) => {
                 return Promise.reject(err);
             });
     }
-    
+
 }

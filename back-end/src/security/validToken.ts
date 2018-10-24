@@ -5,14 +5,14 @@ import * as jwt from 'jsonwebtoken';
 import * as HttpStatus from 'http-status';
 
 export const md_validToken = function md_validToken(req, res, next) {
-
+  
   if (req.headers.authorization) {
     
     var token = req.headers.authorization.split(" ")[1];
 
     if (!token) return res.status(HttpStatus.UNAUTHORIZED).send({ auth: false, message: 'Informe um token de acesso!' });
 
-    jwt.verify(token, process.env.SECRET_JWT, function (err, decoded) {//decoded é o payload descriptado
+    jwt.verify(token, process.env.SECRET_JWT , function (err, decoded) {//decoded é o payload descriptado
       if (err) {
         return res.status(HttpStatus.UNAUTHORIZED).send({ auth: false, message: 'Token inválido!' });
       }

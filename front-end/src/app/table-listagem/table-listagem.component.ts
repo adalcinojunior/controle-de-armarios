@@ -30,7 +30,7 @@ export class TableListagemComponent implements OnInit {
       })
       .catch((err) => {
         if(err.status !== 0){
-          let body = JSON.parse(err._body);
+          let body = err.json();
           this.messageService.add({severity: 'error', summary: 'Error: ', detail: body.message});
         }else{
           this.conexaoFail = true;

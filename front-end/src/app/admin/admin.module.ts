@@ -12,6 +12,9 @@ import { ListagemComponent } from './listagem/listagem.component';
 import { ConfigComponent } from './config/config.component';
 import { HistoricosComponent } from './historicos/historicos.component';
 import { LoginComponent } from './login/login.component';
+import { Interceptor } from './auth/interceptor.module';
+import { AuthService } from './auth/autenticacao.service';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -38,6 +41,7 @@ const routes: Routes = [
     HistoricosComponent,
     LoginComponent
   ],
+  providers: [AuthService],
   bootstrap: [AdminComponent]
 })
 export class AdminModule { }
