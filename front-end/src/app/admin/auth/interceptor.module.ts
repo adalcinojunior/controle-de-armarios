@@ -7,19 +7,24 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        const token = localStorage.getItem('token');
-        const refreshToken = localStorage.getItem('refreshToken');
         
-        const request = req.clone({
-            setHeaders:{
-                Authorization: `JWT ${token}`,
-                refreshToken: refreshToken
-            }
-        });    
-        console.log(JSON.stringify(req.headers));
-        console.log(JSON.stringify(request.headers));
-        return next.handle(request);
+        if (req.url !== '/api/v1/login') {
+
+            const token = localStorage.getItem('token');
+            const refreshToken = localStorage.getItem('refreshToken');
+
+            const request = req.clone({
+                setHeaders: {
+                    Authorization: `JWT ${token}`,
+                    refreshToken: refreshToken
+                }
+            });
+
+            return next.handle(request);
+        } else {
+
+        }
+        return next.handle(req);
     }
 }
 

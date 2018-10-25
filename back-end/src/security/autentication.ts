@@ -11,6 +11,7 @@ import TokenController from '../controllers/token';
 export class Autentication {
 
     public authenticate(req: Request, res: Response) {
+        
         if (req.headers.authorization) {
             let user = new Buffer(req.headers.authorization.split(" ")[1], 'base64').toString().split(':');
             User.findOne({ userName: user[0] })

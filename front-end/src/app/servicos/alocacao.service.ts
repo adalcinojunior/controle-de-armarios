@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../environments/environment';
-
 @Injectable()
 export class AlocacaoService {
 
@@ -11,7 +9,7 @@ export class AlocacaoService {
     ) { }
 
     buscar(busca: string): Promise<any> {
-        return this.httpClient.get<any>(environment.urlAPI + '/allocations' + busca)
+        return this.httpClient.get<any>('/api/v1/allocations' + busca)
             .toPromise()
             .then(response => response)
             .catch((err) => {
@@ -20,7 +18,7 @@ export class AlocacaoService {
     }
 
     buscarTodas(): Promise<any> {
-        return this.httpClient.get<any>(environment.urlAPI + '/allocations')
+        return this.httpClient.get<any>('/api/v1/allocations')
             .toPromise()
             .then(response => response)
             .catch((err) => {
@@ -29,7 +27,7 @@ export class AlocacaoService {
     }
 
     salvar(alocacao): Promise<any> {
-        return this.httpClient.post<any>(environment.urlAPI + '/allocations', alocacao)
+        return this.httpClient.post<any>('/api/v1/allocations', alocacao)
             .toPromise()
             .then(response => response)
             .catch((err) => {
@@ -39,7 +37,7 @@ export class AlocacaoService {
 
 
     devolver(devolucao): Promise<any> {
-        return this.httpClient.post<any>(environment.urlAPI + '/allocations/devolution/' + devolucao.codeKey, devolucao)
+        return this.httpClient.post<any>('/api/v1/allocations/devolution/' + devolucao.codeKey, devolucao)
             .toPromise()
             .then(response => response)
             .catch((err) => {
@@ -50,7 +48,7 @@ export class AlocacaoService {
 
     status(): Promise<any> {
         
-        return this.httpClient.get<any>('/allocations/status')
+        return this.httpClient.get<any>('/api/v1/allocations/status')
             .toPromise()
             .then(response => response)
             .catch((err) => {
@@ -59,7 +57,7 @@ export class AlocacaoService {
     }
 
     deletarTodos(): Promise<any> {
-        return this.httpClient.delete<any>(environment.urlAPI + '/allocations/removeall')
+        return this.httpClient.delete<any>('/api/v1/allocations/removeall')
             .toPromise()
             .then(() => true)
             .catch((err) => {

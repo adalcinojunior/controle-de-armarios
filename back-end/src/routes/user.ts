@@ -5,26 +5,26 @@ import security from '../security/validToken';
 export class RoutesUser{
     private userController: UserController;
     
-    constructor(app:express.Application){
+    constructor(app:express.Application, prefix: string){
         this.userController = new UserController();
-        this.routes(app);
+        this.routes(app, prefix);
     }
-    private routes(app):void{
+    private routes(app, prefix):void{
         
         //  - - - - - Rotas que devem ser protegidas - - - - -
         app
-            .use('/users',security.validToken())// Middleware para validar token de acesso.
+            .use(prefix+'/users',security.validToken())// Middleware para validar token de acesso.
 
-            .route('/users')
+            .route(prefix+'/users')
 
             .get(this.userController.getAll)
 
             .post(this.userController.create);
 
         app
-            .use('/users',security.validToken())// Middleware para validar token de acesso.    
+            .use(prefix+'/users',security.validToken())// Middleware para validar token de acesso.    
 
-            .route('/users/:userId')
+            .route(prefix+'/users/:userId')
         
             .get(this.userController.getOne)
 

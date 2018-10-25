@@ -1,25 +1,25 @@
-import * as mongoose from 'mongoose'; 
+import * as express from 'express';
 import { RoutesAllocation } from './allocation';
 import { RoutesUser } from  './user';
 import Autentication  from '../security/autentication';
-import security from '../security/validToken';
 
 export class Routes {
     private routeAllocation: RoutesAllocation;
     private routerUser: RoutesUser;
+    private prefix = '/api/v1';
 
-    constructor(app: mongoose.Application) {
-        this.routeAllocation =  new RoutesAllocation(app);
-        this.routerUser = new RoutesUser(app);
+    constructor(app: express.Application) {
+        this.routeAllocation =  new RoutesAllocation(app, this.prefix);
+        this.routerUser = new RoutesUser(app, this.prefix);
         this.routes(app);
     }
 
-    private routes(app: mongoose.Application): void {
+    private routes(app): void {
         
-        app.route('/login')
+        app.route(this.prefix+'/login')
              .post(Autentication.authenticate);
 
-        app.route('/refresh')
+        app.route(this.prefix+'/refresh')
             .post(Autentication.refreshToken);
 
     }

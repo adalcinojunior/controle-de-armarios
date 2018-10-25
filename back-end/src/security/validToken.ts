@@ -6,6 +6,7 @@ import * as HttpStatus from 'http-status';
 
 export const md_validToken = function md_validToken(req, res, next) {
   
+  
   if (req.headers.authorization) {
     
     var token = req.headers.authorization.split(" ")[1];

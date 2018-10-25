@@ -6,26 +6,26 @@ import security from '../security/validToken';
 export class RoutesAllocation{
     private allocationController: AllocationController;
     
-    constructor(app:express.Application){
+    constructor(app:express.Application, prefix: string){
         this.allocationController = new AllocationController();
-        this.routes(app);
+        this.routes(app,prefix);
     }
-    private routes(app):void{
+    private routes(app, prefix: string):void{
         //  - - - - - Rotas livres - - - - -
         app
             .use(middleware.getMiddleware())// Middleware de busca
             
-            .route('/allocations')
+            .route(prefix+'/allocations')
 
             .get(this.allocationController.getAll);
 
         app
-            .route('/allocations')
+            .route(prefix+'/allocations')
 
             .post(this.allocationController.create);
 
         app
-            .route('/allocations/devolution/:key')
+            .route(prefix+'/allocations/devolution/:key')
                 
             .post(this.allocationController.devolutionKey);
         //  - - - - - - - - - - - - - - - - - 
@@ -33,23 +33,23 @@ export class RoutesAllocation{
 
         //  - - - - - Rotas que devem ser protegidas - - - - -
         app
-            .use('/allocations/status',security.validToken())// Middleware para validar token de acesso.
+            .use(prefix+'/allocations/status',security.validToken())// Middleware para validar token de acesso.
 
-            .route('/allocations/status')
+            .route(prefix+'/allocations/status')
 
             .get(this.allocationController.getStatus);
         
         app      
-            .use('/allocations/removeall',security.validToken())// Middleware para validar token de acesso.
+            .use(prefix+'/allocations/removeall',security.validToken())// Middleware para validar token de acesso.
 
-            .route('/allocations/removeall')
+            .route(prefix+'/allocations/removeall')
             
             .delete(this.allocationController.deleteAll);
         
         app
-            .use('/allocations/:allocationId',security.validToken())// Middleware para validar token de acesso.
+            .use(prefix+'/allocations/:allocationId',security.validToken())// Middleware para validar token de acesso.
 
-            .route('/allocations/:allocationId')
+            .route(prefix+'/allocations/:allocationId')
         
             .get(this.allocationController.getOne)
 
