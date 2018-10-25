@@ -14,11 +14,12 @@ import { HistoricosComponent } from './historicos/historicos.component';
 import { LoginComponent } from './login/login.component';
 import { Interceptor } from './auth/interceptor.module';
 import { AuthService } from './auth/autenticacao.service';
+import { GuardsService } from './guards/guards.service';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, children:[
+  { path: 'admin', component: AdminComponent, canActivate:[GuardsService], children:[
     { path: '', component: ListagemComponent },
     { path: 'alocacoes', component: ListagemComponent },
     { path: 'configuraçoes', component: ConfigComponent},
@@ -42,7 +43,7 @@ const routes: Routes = [
     HistoricosComponent,
     LoginComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService, GuardsService],
   bootstrap: [AdminComponent]
 })
 export class AdminModule { }

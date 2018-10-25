@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 export class HttpsRequestInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         
-        if (req.url !== '/api/v1/login') {
+        if (req.url === '/api/v1/allocations/status') {
 
             const token = localStorage.getItem('token');
             const refreshToken = localStorage.getItem('refreshToken');
@@ -22,9 +22,8 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
 
             return next.handle(request);
         } else {
-
+            return next.handle(req);
         }
-        return next.handle(req);
     }
 }
 

@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 
 import { AlocacaoService } from '../servicos/alocacao.service';
 import { ComunicacaoService } from '../servicos/comunicacao.service';
-class DevolutionDate{
+class DevolutionDate {
   date: String;
   hour: String
 }
@@ -13,11 +13,11 @@ class Devolucao {
   userName: string = null;
   codeKey: string;
   devolutionDate: DevolutionDate
-  setDevolutionDate(){
+  setDevolutionDate() {
     let date = new Date();
     this.devolutionDate = new DevolutionDate();
     this.devolutionDate.date = date.toLocaleDateString();
-    this.devolutionDate.hour = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+    this.devolutionDate.hour = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
   }
 }
 
@@ -43,13 +43,15 @@ export class FormDevolucaoComponent implements OnInit {
   carregarListaUsuarios(): void {
     this.alocacaoService.buscarTodas()
       .then((lista) => {
-        this.listaReservas = lista;
-        this.users = [{ label: ' - - - Selecione - - - ', value: null }];
-        this.listaReservas.forEach((allocation: any) => {
-          if (allocation.status === 'OCUPADO') {
-            this.users.push({ label: allocation.userName, value: allocation.userName });
-          }
-        });
+        if (lista) {
+          this.listaReservas = lista;
+          this.users = [{ label: ' - - - Selecione - - - ', value: null }];
+          this.listaReservas.forEach((allocation: any) => {
+            if (allocation.status === 'OCUPADO') {
+              this.users.push({ label: allocation.userName, value: allocation.userName });
+            }
+          });
+        }
       })
       .catch((err) => {
         console.error('Ocorreu erro no carregamento dos usuarios!' + err);

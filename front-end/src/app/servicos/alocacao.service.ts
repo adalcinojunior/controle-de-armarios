@@ -21,7 +21,7 @@ export class AlocacaoService {
         return this.httpClient.get<any>('/api/v1/allocations')
             .toPromise()
             .then(response => response)
-            .catch((err) => {
+            .catch((err) => {                
                 return Promise.reject(err);
             });
     }
@@ -31,6 +31,7 @@ export class AlocacaoService {
             .toPromise()
             .then(response => response)
             .catch((err) => {
+                console.log(err);
                 return Promise.reject(err);
             });
     }

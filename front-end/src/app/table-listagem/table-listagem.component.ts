@@ -26,12 +26,13 @@ export class TableListagemComponent implements OnInit {
     
     this.alocacaoService.buscar('?date='+this.data.toLocaleDateString())
       .then((lista) => {
-        this.listaReservas = lista;
+        if(lista){
+          this.listaReservas = lista;
+        }
       })
       .catch((err) => {
         if(err.status !== 0){
-          let body = err.json();
-          this.messageService.add({severity: 'error', summary: 'Error: ', detail: body.message});
+          this.messageService.add({severity: 'error', summary: 'Error: ', detail: err.message});
         }else{
           this.conexaoFail = true;
         }
