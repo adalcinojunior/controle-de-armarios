@@ -2,10 +2,11 @@ import * as HttpStatus from 'http-status';
 import { Request, Response } from 'express';
 import AllocationModel from '../models/allocation';
 import { EnumStatus } from '../models/allocation';
+import { stat } from 'fs';
 
 export class AllocationController {
 
-    public getAll(req: Request, res: Response ): Promise<any> {
+    public getAll(req: Request, res: Response): Promise<any> {
         let filters = req.body.filters;
 
         //console.log(JSON.stringify(filters));
@@ -45,25 +46,36 @@ export class AllocationController {
         // Verifico se a chave estar disponivel
         AllocationModel.find({ codeKey: req.body.codeKey })
             .then((allocations) => {
+                let status: string = 'disponivel';// Variavel para saber se existe algum registro da chave ocupado;
                 allocations.forEach((allocation: any) => {
                     // Caso onde o armario ja foi devolvido
                     if (allocation && allocation.status != EnumStatus[0]) {// DEVOLVIDO
-                        res.status(HttpStatus.BAD_REQUEST);
-                        res.send({ message: 'Armario ocupado!' });
-                        throw new Error('Armario ocupado!');
+                        status = 'ocupado';
                     }
                 });
-
-                // Salva o registro
-                return AllocationModel.create(req.body)
-                    .then((allocation) => {
-                        res.status(HttpStatus.CREATED)
-                        res.send(allocation);
-                    })
-                    .catch((err) => {                       
-                        res.status(HttpStatus.BAD_REQUEST)
-                        res.send(err);
-                    });
+                if (status != 'ocupado') {
+                    // Salva o registro
+                    return AllocationModel.create(req.body)
+                        .then((allocation) => {
+                            res.status(HttpStatus.CREATED)
+                            res.json(allocation);
+                        })
+                        .catch((err) => {
+                            res.status(HttpStatus.BAD_REQUEST)
+                            res.json(err);
+                        });
+                } else {
+                    return AllocationModel.find()
+                        .then(() => {
+                            res.status(HttpStatus.BAD_REQUEST)
+                            res.json({message:'Armario ocupado!'});
+                        });                                      
+                }
+            })
+            .catch(err => {
+                console.log(`Erro ao verificar se a chave estar disponivel.: ${JSON.stringify(err)}`);
+                res.status(HttpStatus.BAD_REQUEST);
+                res.send(err);
             });
     }
     public update(req: Request, res: Response) {
@@ -102,20 +114,20 @@ export class AllocationController {
 
         let devolution = { userName: req.body.userName, codeKey: req.body.codeKey };
         let devolutionDate = req.body.devolutionDate;
-        
+
         return AllocationModel.find(devolution)
             .then((allocations) => {
                 if (allocations.length > 0) {
                     allocations.forEach(allocation => {
                         let date = new Date();
-                        AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: {date:devolutionDate.date,hour:devolutionDate.hour} })
+                        AllocationModel.findOneAndUpdate({ _id: allocation._id, codeKey: req.params.key }, { status: EnumStatus[0], devolutionDate: { date: devolutionDate.date, hour: devolutionDate.hour } })
                             .catch((err) => {
                                 throw new Error('Erro na devoluçao das chaves! ' + err);
                             });
                     });
                     res.status(HttpStatus.OK);
                     res.send({ message: 'Chave devolvida com sucesso!' });
-                }else{
+                } else {
                     res.status(HttpStatus.CONFLICT);
                     res.send({ message: 'Conflito entre chave e usuário!' });
                 }
@@ -127,13 +139,13 @@ export class AllocationController {
     }
 
     public getStatus(req: Request, res: Response) {
-        
+
         return AllocationModel.collection.stats()
-            .then((data)=>{
+            .then((data) => {
                 res.status(HttpStatus.OK);
                 res.send(data);
             })
-            .catch((err)=>{
+            .catch((err) => {
                 res.status(HttpStatus.BAD_REQUEST);
                 res.send(err)
             });

@@ -15,15 +15,16 @@ import { LoginComponent } from './login/login.component';
 import { Interceptor } from './auth/interceptor.module';
 import { AuthService } from './auth/autenticacao.service';
 import { GuardsService } from './guards/guards.service';
+import { RefreshInterceptor } from './auth/refresh-interceptor.module';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate:[GuardsService], children:[
-    { path: '', component: ListagemComponent },
-    { path: 'alocacoes', component: ListagemComponent },
-    { path: 'configuraçoes', component: ConfigComponent},
-    { path: 'historicos', component: HistoricosComponent}
+    { path: '', canActivate:[GuardsService], component: ListagemComponent },
+    { path: 'alocacoes', canActivate:[GuardsService], component: ListagemComponent },
+    { path: 'configuraçoes', canActivate:[GuardsService], component: ConfigComponent},
+    { path: 'historicos', canActivate:[GuardsService], component: HistoricosComponent}
   ]}
   ];
 @NgModule({
@@ -34,7 +35,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ChartModule,
     CalendarModule,
-    Interceptor
+    Interceptor,
+    RefreshInterceptor
   ],
   declarations: [
     AdminComponent,

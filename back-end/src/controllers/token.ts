@@ -33,8 +33,14 @@ export class TokenController {
             .catch(err => err);
     }
 
-    public delete(tokenId: string): Promise<any> {
+    public deleteById(tokenId: string): Promise<any> {
         return Token.findByIdAndRemove({_id: tokenId})
+            .then(() => 'Token removido com sucesso!' )
+            .catch(err => err);
+    }
+
+    public deleteByRefreshToken(refreshToken: string): Promise<any> {
+        return Token.findOneAndRemove({refreshtoken: refreshToken})
             .then(() => 'Token removido com sucesso!' )
             .catch(err => err);
     }

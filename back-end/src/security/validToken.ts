@@ -13,7 +13,7 @@ export const md_validToken = function md_validToken(req, res, next) {
 
     if (!token) return res.status(HttpStatus.UNAUTHORIZED).send({ auth: false, message: 'Informe um token de acesso!' });
 
-    jwt.verify(token, process.env.SECRET_JWT , function (err, decoded) {//decoded é o payload descriptado
+    jwt.verify(token, 'mysecret' , function (err, decoded) {//decoded é o payload descriptado
       if (err) {
         return res.status(HttpStatus.UNAUTHORIZED).send({ auth: false, message: 'Token inválido!' });
       }

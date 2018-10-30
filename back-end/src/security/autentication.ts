@@ -17,7 +17,7 @@ export class Autentication {
             User.findOne({ userName: user[0] })
                 .then(response => {
                     if (response && response.password == user[1]) {
-                        let token = jwt.sign({ user: response.userName }, process.env.SECRET_JWT);
+                        let token = jwt.sign({ user: response.userName }, process.env.SECRET_JWT, { expiresIn: 30 });
                         // Adicionar { expiresIn: 300 } para o token expirar
                         let refreshToken = randToken.uid(256);
                         // adiciono o refreshToken ao banco
@@ -82,6 +82,16 @@ export class Autentication {
 
     }
 
+    public logout(req: Request, res: Response){        
+        let refreshToken: string = <string>req.headers['refreshtoken']; 
+        return TokenController.deleteByRefreshToken(refreshToken)
+            .then(response => {
+                res.status(HttpStatus.OK).json({ message: response });
+            })
+            .catch(err => {
+                res.status(HttpStatus.BAD_REQUEST).json(err)
+            });
+    }
 
 }
 export default new Autentication();

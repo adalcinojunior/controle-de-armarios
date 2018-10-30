@@ -21,6 +21,9 @@ export class Routes {
 
         app.route(this.prefix+'/refresh')
             .post(Autentication.refreshToken);
+        
+        app.route(this.prefix+'/logout')
+            .post(Autentication.logout);
 
     }
 }

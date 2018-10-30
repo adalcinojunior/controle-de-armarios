@@ -39,9 +39,10 @@ export class HistoricosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.montarHistoricoAnual('2018');
-    this.montarHistoricoMensal('10/2018');
-    this.montarHistoricoDiario('19/10/2018');
+    const date = new Date().toLocaleDateString().split('/');
+    this.montarHistoricoAnual(date[2]);
+    this.montarHistoricoMensal(date[1] + '/' + date[2]);
+    this.montarHistoricoDiario(date[0] + '/' + date[1] + '/' + date[2]);
   }
 
   
@@ -52,7 +53,6 @@ export class HistoricosComponent implements OnInit {
   }
 
   montarHistoricoAnual(ano: string) {
-    // console.log(`Montando historico anual, date: ${ano}`);
     this.buscarPorDate(ano)
       .then((allocations) => {
         
@@ -82,7 +82,6 @@ export class HistoricosComponent implements OnInit {
     this.montarHistoricoMensal(mes);
   }
   montarHistoricoMensal(mes: string) {
-    // console.log(`Montando historico mensal date: ${mes}`);
     this.buscarPorDate(mes)
       .then((allocations)=>{
 
@@ -113,7 +112,6 @@ export class HistoricosComponent implements OnInit {
     this.montarHistoricoDiario(date.toLocaleDateString());
   }
   montarHistoricoDiario(dia: string) {
-    // console.log(`Montando historico diario, date: ${dia}`);
     this.buscarPorDate(dia)
       .then((allocations)=>{
 

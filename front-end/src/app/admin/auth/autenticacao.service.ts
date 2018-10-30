@@ -25,4 +25,21 @@ export class AuthService {
             .catch(err => Promise.reject(err));
     }
 
+    refreshToken(): Promise<any> {
+        return this.httpClient
+            .post<any>('/api/v1/refresh',null)
+            .toPromise()
+            .then(response => response)
+            .catch(err => Promise.reject(err));
+
+    }
+
+    logout(): Promise<any>{
+        return this.httpClient
+            .post<any>('/api/v1/logout',null)
+            .toPromise()
+            .then(response => response)
+            .catch(err => Promise.reject(err));
+    }
+
 }

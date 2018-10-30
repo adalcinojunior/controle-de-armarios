@@ -29,9 +29,12 @@ export class AlocacaoService {
     salvar(alocacao): Promise<any> {
         return this.httpClient.post<any>('/api/v1/allocations', alocacao)
             .toPromise()
-            .then(response => response)
-            .catch((err) => {
-                console.log(err);
+            .then(response => {
+                if(response == undefined){
+                    return Promise.reject({message:'Armario ocupado!'});
+                }                
+            })
+            .catch((err) => {                
                 return Promise.reject(err);
             });
     }

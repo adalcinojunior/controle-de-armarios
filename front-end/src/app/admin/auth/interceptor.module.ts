@@ -2,28 +2,22 @@ import { Injectable, NgModule } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
-        if (req.url === '/api/v1/allocations/status') {
-
+        let request = req.clone();
+        if (req.url === '/api/v1/allocations/status' || req.url === '/api/v1/refresh' || req.url === '/api/v1/logout') {
             const token = localStorage.getItem('token');
             const refreshToken = localStorage.getItem('refreshToken');
-
-            const request = req.clone({
+            request = req.clone({
                 setHeaders: {
                     Authorization: `JWT ${token}`,
                     refreshToken: refreshToken
                 }
             });
-
-            return next.handle(request);
-        } else {
-            return next.handle(req);
         }
+        return next.handle(request);
     }
 }
 
