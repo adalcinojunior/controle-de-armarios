@@ -22,7 +22,7 @@ export class RoutesUser{
             .post(this.userController.create);
 
         app
-            .use(prefix+'/users',security.validToken())// Middleware para validar token de acesso.    
+            .use(prefix+'/users/:userId',security.validToken())// Middleware para validar token de acesso.    
 
             .route(prefix+'/users/:userId')
         

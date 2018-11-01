@@ -7,6 +7,10 @@ export interface IUser{
     password: String;
 }
 
+enum TypeUser {
+    'ADMIN', 'USER'
+}
+
 export const User_Schema = new Schema({
     userName: {
         type: String,
@@ -15,6 +19,10 @@ export const User_Schema = new Schema({
     password: {
         type: String,
         required: 'Informe a senha do usuário'
+    },
+    type: {
+        type: TypeUser,
+        required: 'Informe o tipo do usuário'
     }
 });
 

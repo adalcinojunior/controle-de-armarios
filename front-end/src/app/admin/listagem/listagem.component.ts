@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlocacaoService } from '../../servicos/alocacao.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-listagem',

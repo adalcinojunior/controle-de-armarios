@@ -20,3 +20,12 @@ input.ng-invalid.ng-dirty{
     color: red;
 }
 
+#externa {
+    z-index: 2000;  
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position:fixed;top:0;right:0;bottom:0;left:0;
+}

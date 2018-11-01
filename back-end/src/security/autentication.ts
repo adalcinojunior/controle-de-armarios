@@ -55,7 +55,7 @@ export class Autentication {
             TokenController.getOneByUser(user)
                 .then((refresTokenLocal) => {
                     if (refresTokenLocal.refreshtoken === refreshToken) {//refresh token é valido
-                        let newtoken = jwt.sign({ user }, process.env.SECRET_JWT, { expiresIn: 30 });
+                        let newtoken = jwt.sign({ user }, process.env.SECRET_JWT); // { expiresIn: 60 }
                         let newrefreshToken = randToken.uid(256);// Novo token de atualização
                         //substituir o novo refreshToken a lista
                         TokenController.update(refresTokenLocal._id,{user: user, refreshtoken: newrefreshToken})

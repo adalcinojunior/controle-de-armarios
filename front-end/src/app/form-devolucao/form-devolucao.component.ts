@@ -5,6 +5,8 @@ import { MessageService } from 'primeng/api';
 
 import { AlocacaoService } from '../servicos/alocacao.service';
 import { ComunicacaoService } from '../servicos/comunicacao.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 class DevolutionDate {
   date: String;
   hour: String
@@ -62,14 +64,13 @@ export class FormDevolucaoComponent implements OnInit {
     this.carregando = true;
     this.devolucao.setDevolutionDate();
     this.alocacaoService.devolver(this.devolucao)
-      .then(() => {
-        this.messageService.add({ severity: 'success', summary: '', detail: 'Devoluçao realizada com sucesso!' });
-        form.reset();
-        this.comunicacao.alocacaoDevolvida();
-        this.carregando = false;
+      .then(() => {        
+          this.messageService.add({ severity: 'success', summary: '', detail: 'Devoluçao realizada com sucesso!' });
+          form.reset();
+          this.comunicacao.alocacaoDevolvida();
+          this.carregando = false;        
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(err => {
         this.messageService.add({ severity: 'error', summary: 'Erro em devolver chave', detail: err.message });
         this.carregando = false;
       });

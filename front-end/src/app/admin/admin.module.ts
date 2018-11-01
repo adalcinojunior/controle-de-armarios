@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
@@ -12,10 +13,12 @@ import { ListagemComponent } from './listagem/listagem.component';
 import { ConfigComponent } from './config/config.component';
 import { HistoricosComponent } from './historicos/historicos.component';
 import { LoginComponent } from './login/login.component';
-import { Interceptor } from './auth/interceptor.module';
-import { AuthService } from './auth/autenticacao.service';
+import { Interceptor } from './interceptors/interceptor.module';
+import { AuthService } from './servicos/autenticacao.service';
 import { GuardsService } from './guards/guards.service';
-import { RefreshInterceptor } from './auth/refresh-interceptor.module';
+import { RefreshInterceptor } from './interceptors/refresh-interceptor.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { UsuariosService } from './servicos/usuarios.service';
 
 
 const routes: Routes = [
@@ -33,19 +36,21 @@ const routes: Routes = [
     FormsModule,
     TableModule,
     RouterModule.forChild(routes),
+    HttpClientModule,    
     ChartModule,
     CalendarModule,
     Interceptor,
-    RefreshInterceptor
+    RefreshInterceptor,
+    UsuariosModule
   ],
   declarations: [
     AdminComponent,
     ListagemComponent,
     ConfigComponent,
     HistoricosComponent,
-    LoginComponent
+    LoginComponent    
   ],
-  providers: [AuthService, GuardsService],
+  providers: [AuthService, GuardsService, UsuariosService],
   bootstrap: [AdminComponent]
 })
 export class AdminModule { }

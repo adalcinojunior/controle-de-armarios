@@ -112,7 +112,7 @@ export class AllocationController {
             }();
         }
 
-        let devolution = { userName: req.body.userName, codeKey: req.body.codeKey };
+        let devolution = { userName: req.body.userName, codeKey: req.body.codeKey, status: 'OCUPADO' };
         let devolutionDate = req.body.devolutionDate;
 
         return AllocationModel.find(devolution)
@@ -146,6 +146,7 @@ export class AllocationController {
                 res.send(data);
             })
             .catch((err) => {
+                
                 res.status(HttpStatus.BAD_REQUEST);
                 res.send(err)
             });

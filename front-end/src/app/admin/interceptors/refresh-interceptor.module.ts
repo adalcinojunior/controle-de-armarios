@@ -2,7 +2,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './autenticacao.service';
+import { AuthService } from '../servicos/autenticacao.service';
 
 @Injectable()
 export class HttpsRequestErrosInterceptor implements HttpInterceptor {

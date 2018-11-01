@@ -85,7 +85,7 @@ export class HistoricosComponent implements OnInit {
     this.buscarPorDate(mes)
       .then((allocations)=>{
 
-        let data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         allocations.forEach((element: any) => {
           let index: number = parseInt(element.entryDate.date.substring(0, 2));
           data[index-1]++;

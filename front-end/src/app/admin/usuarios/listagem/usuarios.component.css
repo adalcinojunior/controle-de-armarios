@@ -1,0 +1,9 @@
+table th {
+    text-align: center;
+}
+#adicionar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16pt;
+}
