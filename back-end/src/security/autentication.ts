@@ -17,7 +17,7 @@ export class Autentication {
             User.findOne({ userName: user[0] })
                 .then(response => {
                     if (response && response.password == user[1]) {
-                        let token = jwt.sign({ user: response.userName }, process.env.SECRET_JWT, { expiresIn: 30 });
+                        let token = jwt.sign({ _id:response._id,user: response.userName , type: response.type}, process.env.SECRET_JWT);
                         // Adicionar { expiresIn: 300 } para o token expirar
                         let refreshToken = randToken.uid(256);
                         // adiciono o refreshToken ao banco

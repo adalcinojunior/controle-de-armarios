@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { UserController} from '../controllers/user';
 import security from '../security/validToken';
+import  middleware  from '../middleware/md-users';
 
 export class RoutesUser{
     private userController: UserController;
@@ -13,7 +14,7 @@ export class RoutesUser{
         
         //  - - - - - Rotas que devem ser protegidas - - - - -
         app
-            .use(prefix+'/users',security.validToken())// Middleware para validar token de acesso.
+            .use(prefix+'/users',middleware.getMiddleware(),security.validToken())// Middleware para validar token de acesso. Middleware de busca
 
             .route(prefix+'/users')
 

@@ -19,10 +19,13 @@
             <tr>
                 <td>{{reserva.userName | uppercase}}</td>
                 <td>{{reserva.codeKey}}</td>
-                <td>{{reserva.entryDate.date}} as {{reserva.entryDate.hour}}</td>
+                <td>{{reserva.entryDate.date}}</td>
+                <td>{{reserva.entryDate.hour}}</td>
                 <td [ngStyle]="{'color':reserva.status=='OCUPADO'?'red':'green'}">{{reserva.status}}</td>
                 <td *ngIf="!reserva.devolutionDate"></td>
-                <td *ngIf="reserva.devolutionDate">{{reserva.devolutionDate.date}} as {{reserva.devolutionDate.hour}}</td>
+                <td *ngIf="!reserva.devolutionDate"></td>
+                <td *ngIf="reserva.devolutionDate">{{reserva.devolutionDate.date}}</td>
+                <td *ngIf="reserva.devolutionDate">{{reserva.devolutionDate.hour}}</td>
             </tr>            
         </ng-template>
     </p-table>

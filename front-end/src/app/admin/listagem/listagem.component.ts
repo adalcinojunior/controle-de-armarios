@@ -14,9 +14,11 @@ export class ListagemComponent implements OnInit {
   private cols = [
     { field: 'userName', header: 'Nome' },
     { field: 'codeKey', header: 'Chave' },
-    { field: 'entryDate', header: 'Data de Entrada' },
+    { field: 'entryDate.date', header: 'Data de Entrada' },
+    { field: 'entryDate.hour', header: 'Hora de Entrada' },
     { field: 'status', header: 'Status' },
-    { field: 'devolutionDate', header: 'Data de Devolução' }
+    { field: 'devolutionDate.date', header: 'Data de Devolução' },
+    { field: 'devolutionDate.hour', header: 'Hora de Devolução' }
   ];
 
   constructor(private alocacaoService: AlocacaoService) { }

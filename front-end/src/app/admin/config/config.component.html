@@ -8,7 +8,7 @@
           <p>Tamanho atual desta coleção: {{status.size}} bytes</p>
           <p>Quantidade de registros: {{status.count}}.</p>
           <p>Tamanho médio de cada registro: {{status.avgObjSize}} bytes. </p>
-          <div class="form-group" id="div-deletar">
+          <div class="form-group" id="div-deletar" *ngIf="usuarioLogado.type=='ADMIN'">
             <label class="padding-5">Deletar todos os registros:</label>
             <button class="btn btn-danger padding-5" (click)="showModalDeletar()">Deletar</button>
           </div>
@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="usuarioLogado.type=='ADMIN'">
   <div class="col">
     <div class="card">
       <h5 class="card-title">Usuários</h5>      

@@ -11,14 +11,17 @@
         <thead>
           <th>Nome</th>
           <th>Senha</th>
+          <th>Tipo</th>
           <th colspan="2">Ações</th>
         </thead>
         <tbody>
           <tr *ngFor="let user of users; let i=index;">
             <td>{{user.userName}}</td>
             <td>{{user.password}}</td>
-            <td><button class="btn btn-secondary btn-block btn-sm" (click)="modalEditar(user)">Editar</button></td>
-            <td><button class="btn btn-danger btn-block btn-sm" (click)="excluirUser(user)">Excluir</button></td>
+            <td>{{user.type}}</td>
+            <td *ngIf="!isUserLogado(user)"><button class="btn btn-secondary btn-block btn-sm" (click)="modalEditar(user)">Editar</button></td>
+            <td colspan="2" *ngIf="isUserLogado(user)"><button class="btn btn-secondary btn-block btn-sm" (click)="modalEditar(user)">Editar</button></td>
+            <td *ngIf="!isUserLogado(user)"><button class="btn btn-danger btn-block btn-sm" (click)="mostarModalExlcuir(user)">Excluir</button></td>
           </tr>
         </tbody>
       </table>
@@ -28,4 +31,6 @@
 
 <app-form-usuario *ngIf="modaladicionar" (close)="fecharModalAdicionar()"></app-form-usuario>
 
-<app-form-usuario *ngIf="modaleditar" [user]="user" (close)="fecharModalEditar()"></app-form-usuario>
+<app-form-usuario *ngIf="modaleditar" [(user)]="user" (close)="fecharModalEditar()"></app-form-usuario>
+
+<app-confirmacao-excluir *ngIf="modalexcluir" (cancelar)="fecharModalExcluir()" (excluir)="excluirUser()"></app-confirmacao-excluir>

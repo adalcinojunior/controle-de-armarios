@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AlocacaoService } from 'src/app/servicos/alocacao.service';
-
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
@@ -18,7 +18,7 @@ export class ConfigComponent implements OnInit {
     size: 0
   };
   armazenamento: any;  
-  
+  usuarioLogado: any;
   constructor(private AlocacaoService: AlocacaoService, private messageService: MessageService) {
         
     this.status.count = 0;
@@ -29,6 +29,9 @@ export class ConfigComponent implements OnInit {
 
   ngOnInit() {
     this.carregarStatus();
+    const helperJWT = new JwtHelperService();
+    let token = helperJWT.decodeToken(localStorage.getItem('token'));
+    this.usuarioLogado = token;    
   }
 
   carregarStatus() {

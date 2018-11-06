@@ -40,11 +40,11 @@ export const middleware = function (req: Request, res: Response, next: Function)
 
 }
 
-class FiltrosEPesquisa{
+class FiltrosEPesquisaAlocacoes{
 
     getMiddleware(): Function{
         return middleware;
     }
 
 }
-export default new FiltrosEPesquisa();
+export default new FiltrosEPesquisaAlocacoes();

@@ -118,7 +118,7 @@ export class HistoricosComponent implements OnInit {
         let data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         allocations.forEach((element: any) => {
           let index: number = parseInt(element.entryDate.hour.substring(0, 5));
-          data[index-1]++;
+          data[index]++;
         });
 
         this.historicoSemanal = {

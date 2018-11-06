@@ -1,0 +1,24 @@
+<div id="externa" class="row">
+  <div class="col-sm-4 col-md-4" id="modalConfirmacaoExcluir">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir usuário</h5>
+          <button type="button" class="close" (click)="clicouCancelar()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="modal-title">Tem certeza que deseja excluir?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-block col" (click)="clicouCancelar()">Cancelar</button>
+          <button type="button" class="btn btn-Success btn-block col" (click)="clicouExcluir()">Excluir</button>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!--Fundo preto do modal-->
+<div class="modal-backdrop show">  <div>

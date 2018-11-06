@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { UsuariosService } from '../../servicos/usuarios.service';
-enum TypeUser{
+
+enum TypeUser {
   'ADMIN', 'USER'
 }
-interface IUser{
+interface IUser {
+  _id?: string,
   userName: string,
   password: string,
   type: TypeUser
@@ -14,20 +18,26 @@ interface IUser{
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
+
   users: IUser[];
   modaladicionar: boolean;
   modaleditar: boolean;
+  modalexcluir: boolean;
   user: IUser;
+  usuarioLogado: any;  
   constructor(
     private usersService: UsuariosService
   ) { }
 
   ngOnInit() {
-    this.carregarUsuarios();
+    this.carregarUsuarios('');
+    const helperJWT = new JwtHelperService();
+    let token = helperJWT.decodeToken(localStorage.getItem('token'));
+    this.usuarioLogado = token; 
   }
 
-  carregarUsuarios(){
-    this.usersService.buscarTodos()
+  carregarUsuarios(busca: string) {
+    this.usersService.buscarTodos(busca)
       .then(response => {
         this.users = response;
       })
@@ -35,35 +45,56 @@ export class UsuariosComponent implements OnInit {
   }
 
   pesquisar(evento: any) {
-
+    let busca: string = evento.target.value;
+    if(busca){
+      this.carregarUsuarios('?query=' + busca);    
+    }else{
+      this.carregarUsuarios('');    
+    }
   }
 
-  modalAdicionar(){
+  modalAdicionar() {
     this.modaladicionar = true;
   }
 
-  fecharModalAdicionar(){
+  fecharModalAdicionar() {
     this.modaladicionar = false;
-    this.carregarUsuarios();
+    this.carregarUsuarios('');
   }
 
-  excluirUser(user: any){
-    this.usersService.excluir(user._id)
+
+  modalEditar(user: IUser) {
+    this.user = user;
+    this.modaleditar = true;
+  }
+
+  fecharModalEditar() {
+    this.modaleditar = false;
+    this.carregarUsuarios('');
+  }
+
+  mostarModalExlcuir(user: any) {
+    this.user = user;
+    this.modalexcluir =true;
+  }
+
+  excluirUser() {
+    this.usersService.excluir(this.user._id)
       .then(() => {
-        this.carregarUsuarios();
+        this.carregarUsuarios('');
+        this.fecharModalExcluir();
       })
       .catch(err => {
         console.log(`Error: ${err}`);
       });
   }
 
-  modalEditar(user: IUser){
-    this.user = user;
-    this.modaleditar = true;
+  fecharModalExcluir() {
+    this.user = null;
+    this.modalexcluir = false;
   }
 
-  fecharModalEditar(){
-    this.modaleditar = false;
-    this.carregarUsuarios();
+  isUserLogado(user: any) {    
+    return this.usuarioLogado._id === user._id;
   }
 }

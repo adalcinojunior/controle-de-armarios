@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { AllocationController} from '../controllers/allocation';
-import  middleware  from '../middleware/middleware';
+import  middleware  from '../middleware/md-allocations';
 import security from '../security/validToken';
 
 export class RoutesAllocation{

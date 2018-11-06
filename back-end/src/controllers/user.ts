@@ -5,7 +5,8 @@ import User from '../models/user';
 export class UserController {
 
     public getAll(req: Request, res: Response) {
-        return User.find({})
+        let filters = req.body.filters;        
+        return User.find(filters)
             .then(users => res.status(HttpStatus.OK).json(users))
             .catch(err => res.status(HttpStatus.BAD_REQUEST).json(err));
     }

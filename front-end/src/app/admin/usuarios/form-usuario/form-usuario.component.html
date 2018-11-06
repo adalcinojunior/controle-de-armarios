@@ -3,21 +3,21 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{titulo}}</h5>
+          <h5 class="modal-title">{{titulo}}</h5>
           <button type="button" class="close" (click)="limpar(user)">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form #user="ngForm" (ngSubmit)="salvar(user.value)">
           <div class="modal-body">
-
+            
             <div class="col form-group">
               <label for="userName" class="control-label" [class.is-invalid]="nomeModel.invalid && nomeModel.dirty">Seu
                 nome:
               </label>
               <div class="">
                 <input id="userName" required minlength="4" class="form-control" type="text" name="userName" #nomeModel="ngModel"
-                  [(ngModel)]="user.userName">
+                  [(ngModel)]="userName">
               </div>
             </div>
 
@@ -26,18 +26,18 @@
               </label>
               <div class="">
                 <input id="password" required minlength="4" class="form-control" type="text" name="password"
-                  #senhaModel="ngModel" [(ngModel)]="user.password">
+                  #senhaModel="ngModel" [(ngModel)]="password">
               </div>
             </div>
 
-            <div class="col form-group">
-              <label for="type" class="control-label" [class.is-invalid]="senhaModel.invalid && senhaModel.dirty">Senha:
+            <div class="col form-group" *ngIf="!isUserLogado()">
+              <label for="type" class="control-label" [class.is-invalid]="typeModel.invalid && typeModel.dirty">Senha:
               </label>
               <div class="">
-                <select name="type" id="type" class="form-control">
+                <select name="type" id="type" class="form-control" #typeModel="ngModel" [(ngModel)]="type" required>
                     <option value=""> - - selecione - - </option>
-                  <option value="user">Usuário simples</option>
-                  <option value="admin">Administrador</option>
+                  <option value="USER">Usuário simples</option>
+                  <option value="ADMIN">Administrador</option>
                 </select>
               </div>
             </div>
