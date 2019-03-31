@@ -1,4 +1,9 @@
 # FrontEnd
+[![node](https://img.shields.io/badge/node-v11.1.0-red.svg?style=?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/npm-v6.4.1-red.svg?style=flat-square&logo=npm)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/angular-v6.2.2-orange.svg?style=flat-square&logo=angular)](https://angular.io/)
+[![typescript](https://img.shields.io/badge/TypeScript-v2.9.2-blue.svg?style=flat-square&logo=TS)](https://www.typescriptlang.org/)
+[![bootstrap](https://img.shields.io/badge/BootStrap-v4.1.3-blue.svg?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.2.
 
