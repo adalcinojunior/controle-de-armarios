@@ -6,12 +6,12 @@ import { HttpClient } from '@angular/common/http';
 export class AlocacaoService {
 
     constructor(
-        private http: Http,
+        private httpTeste: Http,
         private httpClient: HttpClient
     ) { }
 
     buscar(busca: string): Promise<any> {
-        return this.http.get('/api/v1/allocations' + busca)
+        return this.httpTeste.get('/api/v1/allocations' + busca)
             .toPromise()
             .then((response) => response.json())
             .catch((err) => {
@@ -20,7 +20,7 @@ export class AlocacaoService {
     }
 
     buscarTodas(): Promise<any> {
-        return this.http.get('/api/v1/allocations')
+        return this.httpTeste.get('/api/v1/allocations')
             .toPromise()
             .then((response) => response.json())
             .catch((err) => {
@@ -29,7 +29,7 @@ export class AlocacaoService {
     }
 
     salvar(alocacao): Promise<any> {
-        return this.http.post('/api/v1/allocations', alocacao)
+        return this.httpTeste.post('/api/v1/allocations', alocacao)
             .toPromise()
             .then(response => response.json())
             .catch((err) => {
@@ -39,7 +39,7 @@ export class AlocacaoService {
 
 
     devolver(devolucao): Promise<any> {
-        return this.http.post('/api/v1/allocations/devolution/' + devolucao.codeKey, devolucao)
+        return this.httpTeste.post('/api/v1/allocations/devolution/' + devolucao.codeKey, devolucao)
             .toPromise()
             .then(response => response.json())
             .catch((err) => {
@@ -58,12 +58,12 @@ export class AlocacaoService {
     }
 
     deletarTodos(): Promise<any>{
-        return this.http.delete('/api/v1/allocations/removeall')
+        return this.httpTeste.delete('/api/v1/allocations/removeall')
             .toPromise()
             .then(() => true)
             .catch((err) => {
                 return Promise.reject(err.json());
             });
     }
-    
+
 }
